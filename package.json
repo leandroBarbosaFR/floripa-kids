@@ -1,0 +1,22 @@
+{
+  "name": "floripa-with-kids",
+  "private": true,
+  "workspaces": [
+    "apps/admin",
+    "apps/web",
+    "packages/*"
+  ],
+  "scripts": {
+    "admin": "npm run dev --workspace=apps/admin",
+    "web": "npm run dev --workspace=apps/web",
+    "mobile": "npm run start --workspace=apps/mobile",
+    "build:admin": "npm run build --workspace=apps/admin",
+    "build:web": "npm run build --workspace=apps/web"
+  },
+  "devDependencies": {
+    "turbo": "^2.0.0"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1"
+  }
+}
