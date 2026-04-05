@@ -1,63 +1,252 @@
+'use client'
+
 import Link from 'next/link'
-import { Palmtree, Waves, UtensilsCrossed, CalendarDays, Apple, Play } from 'lucide-react'
+import { Search, MapPin, Baby, Palmtree, Waves, TreePine, CloudRain, Tag, Building2, Compass } from 'lucide-react'
+import { activities } from '@/lib/data'
+import ActivityCard from '@/components/ActivityCard'
+import { useTranslation } from '@/components/LanguageProvider'
+
+const CategoryIcon = ({ type }: { type: string }) => {
+  const props = { size: 28, strokeWidth: 1.5, className: 'text-slate-700' }
+  switch (type) {
+    case 'beach': return <Waves {...props} />
+    case 'park': return <TreePine {...props} />
+    case 'rainy': return <CloudRain {...props} />
+    case 'free': return <Tag {...props} />
+    case 'toddlers': return <Baby {...props} />
+    case 'indoor': return <Building2 {...props} />
+    default: return <MapPin {...props} />
+  }
+}
 
 export default function Home() {
+  const { t } = useTranslation()
+  const featured = activities.filter((a) => a.featured)
+
+  const quickFilters = [
+    { key: 'beach',    labelKey: 'beach'    as const, href: '/activities?type=beach',    bg: 'bg-brand-blue' },
+    { key: 'park',     labelKey: 'parks'    as const, href: '/activities?type=park',     bg: 'bg-brand-green' },
+    { key: 'rainy',    labelKey: 'rainyDays'as const, href: '/activities?weather=rainy', bg: 'bg-brand-blue' },
+    { key: 'free',     labelKey: 'freeOnly' as const, href: '/activities?budget=free',   bg: 'bg-brand-yellow' },
+    { key: 'toddlers', labelKey: 'toddlers' as const, href: '/activities?age=0-2',       bg: 'bg-brand-pink' },
+    { key: 'indoor',   labelKey: 'indoor'   as const, href: '/activities?type=indoor',   bg: 'bg-brand-green' },
+  ]
+
+  const stats = [
+    { value: '8+',        label: t.stats.activities },
+    { value: '4',         label: t.stats.zones },
+    { value: '0–12',      label: t.stats.ages },
+    { value: t.budget.free, label: t.stats.free },
+  ]
+
+  const howItWorks = [
+    { Icon: Baby,   title: t.howItWorks.step1Title, desc: t.howItWorks.step1Desc },
+    { Icon: Search, title: t.howItWorks.step2Title, desc: t.howItWorks.step2Desc },
+    { Icon: MapPin, title: t.howItWorks.step3Title, desc: t.howItWorks.step3Desc },
+  ]
+
+  const zoneFilters = [
+    { key: 'north',  labelKey: 'north'  as const, href: '/activities?zone=north',  bg: 'bg-brand-blue' },
+    { key: 'south',  labelKey: 'south'  as const, href: '/activities?zone=south',  bg: 'bg-brand-green' },
+    { key: 'lagoa',  labelKey: 'lagoa'  as const, href: '/activities?zone=lagoa',  bg: 'bg-brand-pink' },
+    { key: 'center', labelKey: 'center' as const, href: '/activities?zone=center', bg: 'bg-brand-yellow' },
+  ]
+
+  const ageKeys = ['0-2', '3-5', '6-8', '9-12'] as const
+
   return (
-    <main className="min-h-screen flex flex-col">
+    <main>
       {/* Hero */}
-      <section className="flex-1 flex flex-col items-center justify-center text-center px-6 py-24 bg-[#fff7ed]">
-        <div className="mb-6 text-[#f97316]">
-          <Palmtree size={56} strokeWidth={1.5} />
-        </div>
-        <h1 className="text-5xl font-extrabold text-gray-900 mb-2">Floripa</h1>
-        <p className="text-3xl font-bold text-[#f97316] mb-6">with Kids</p>
-        <p className="text-lg text-gray-600 max-w-md mb-10">
-          Discover the best activities to do with your kids in Florianópolis —
-          beaches, parks, restaurants, events and more.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href="https://apps.apple.com/app/floripa-with-kids"
-            className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-2xl font-semibold hover:bg-gray-700 transition"
+      <section className="bg-gradient-to-b from-brand-blue via-brand-green/30 to-white pt-16 pb-20 px-6">
+        <div className="max-w-3xl mx-auto text-center">
+
+          <div
+            className="inline-flex items-center gap-2 bg-brand-yellow text-slate-700 border border-brand-yellow rounded-full px-4 py-1.5 text-sm font-medium mb-6 animate-slide-down"
           >
-            <Apple size={18} />
-            App Store
-          </a>
-          <a
-            href="https://play.google.com/store/apps/details?id=com.floripawithkids.app"
-            className="inline-flex items-center gap-2 bg-[#f97316] text-white px-6 py-3 rounded-2xl font-semibold hover:bg-orange-600 transition"
+            <Palmtree size={14} className="animate-float" />
+            {t.hero.badge}
+          </div>
+
+          <h1
+            className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-slate-800 leading-tight mb-4 animate-fade-up"
+            style={{ animationDelay: '0.1s' }}
           >
-            <Play size={18} />
-            Google Play
-          </a>
+            {t.hero.title}{' '}
+            <span className="text-brand-coral">{t.hero.highlight}</span>
+          </h1>
+
+          <p
+            className="text-slate-500 text-lg max-w-xl mx-auto mb-10 leading-relaxed animate-fade-up"
+            style={{ animationDelay: '0.2s' }}
+          >
+            {t.hero.description}
+          </p>
+
+          <div
+            className="flex justify-center mb-10 animate-fade-up"
+            style={{ animationDelay: '0.3s' }}
+          >
+            <Link
+              href="/activities"
+              className="bg-slate-800 hover:bg-slate-700 text-white font-semibold px-8 py-3.5 rounded-2xl transition-all duration-200 shadow-sm hover:shadow-md hover:-translate-y-0.5 text-sm whitespace-nowrap"
+            >
+              {t.hero.exploreAll}
+            </Link>
+          </div>
+
+          <div
+            className="flex items-center justify-center gap-2 flex-wrap animate-fade-up"
+            style={{ animationDelay: '0.4s' }}
+          >
+            <span className="text-xs text-slate-400 font-medium mr-1">{t.hero.ageFilterLabel}</span>
+            {ageKeys.map((age, i) => (
+              <Link
+                key={age}
+                href={`/activities?age=${age}`}
+                className="bg-brand-blue border border-brand-blue text-slate-700 text-xs font-semibold px-3 py-1.5 rounded-full hover:opacity-80 hover:-translate-y-0.5 transition-all duration-150 shadow-sm"
+                style={{ animationDelay: `${0.45 + i * 0.06}s` }}
+              >
+                {t.ages[age]}
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Features */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
-          {[
-            { icon: <Waves size={36} strokeWidth={1.5} />, title: 'Beaches & Parks', desc: 'Family-friendly spots rated by real parents.' },
-            { icon: <UtensilsCrossed size={36} strokeWidth={1.5} />, title: 'Restaurants', desc: 'Kid-friendly restaurants with high chairs and menus.' },
-            { icon: <CalendarDays size={36} strokeWidth={1.5} />, title: 'Events', desc: 'Local events and activities updated weekly.' },
-          ].map(({ icon, title, desc }) => (
-            <div key={title} className="flex flex-col items-center gap-3">
-              <span className="text-[#f97316]">{icon}</span>
-              <h3 className="font-bold text-lg text-gray-900">{title}</h3>
-              <p className="text-gray-500 text-sm">{desc}</p>
+      {/* Stats */}
+      <section className="bg-white border-y border-slate-100 py-8 px-6">
+        <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+          {stats.map(({ value, label }, i) => (
+            <div
+              key={label}
+              className="animate-fade-up"
+              style={{ animationDelay: `${0.1 + i * 0.1}s` }}
+            >
+              <div className="text-2xl font-extrabold text-brand-coral mb-1">{value}</div>
+              <div className="text-xs text-slate-400 font-medium">{label}</div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-8 px-6 border-t border-gray-100 text-center text-sm text-gray-400">
-        <p>© {new Date().getFullYear()} Floripa with Kids · Made with love in Floripa</p>
-        <div className="mt-2 flex justify-center gap-4">
-          <Link href="/privacy" className="hover:text-[#f97316] transition">Privacy Policy</Link>
-          <a href="mailto:hello@1367studio.com" className="hover:text-[#f97316] transition">Contact</a>
+      {/* Quick filters */}
+      <section className="py-14 px-6 bg-white">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="text-2xl font-bold text-slate-800 mb-1 animate-fade-up">{t.categories.title}</h2>
+          <p className="text-slate-400 text-sm mb-7 animate-fade-up" style={{ animationDelay: '0.05s' }}>
+            {t.categories.subtitle}
+          </p>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+            {quickFilters.map(({ key, labelKey, href, bg }, i) => (
+              <Link
+                key={key}
+                href={href}
+                className={`${bg} rounded-2xl p-4 flex flex-col items-center gap-2.5 hover:scale-105 hover:-translate-y-1 transition-all duration-200 shadow-sm border border-white/60 animate-scale-in`}
+                style={{ animationDelay: `${i * 0.07}s` }}
+              >
+                <CategoryIcon type={key} />
+                <span className="text-xs font-semibold text-slate-700 text-center leading-tight">
+                  {t.categories[labelKey]}
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </footer>
+      </section>
+
+      {/* Zone filters */}
+      <section className="py-14 px-6 bg-slate-50">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-center gap-2 mb-1 animate-fade-up">
+            <Compass size={18} className="text-brand-coral" />
+            <h2 className="text-2xl font-bold text-slate-800">{t.zones.title}</h2>
+          </div>
+          <p className="text-slate-400 text-sm mb-7 animate-fade-up" style={{ animationDelay: '0.05s' }}>
+            {t.zones.subtitle}
+          </p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {zoneFilters.map(({ key, labelKey, href, bg }, i) => (
+              <Link
+                key={key}
+                href={href}
+                className={`${bg} rounded-2xl p-5 flex flex-col items-center gap-3 hover:scale-105 hover:-translate-y-1 transition-all duration-200 shadow-sm border border-white/60 animate-scale-in`}
+                style={{ animationDelay: `${i * 0.08}s` }}
+              >
+                <MapPin size={26} strokeWidth={1.5} className="text-slate-700" />
+                <span className="text-sm font-bold text-slate-700 text-center">{t.zones[labelKey]}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Featured */}
+      <section className="py-14 px-6 bg-brand-blue/40">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex items-end justify-between mb-7 animate-fade-up">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-800 mb-1">{t.featured.title}</h2>
+              <p className="text-slate-400 text-sm">{t.featured.subtitle}</p>
+            </div>
+            <Link
+              href="/activities"
+              className="text-brand-coral hover:text-brand-coral/70 text-sm font-semibold transition-colors"
+            >
+              {t.featured.viewAll} →
+            </Link>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {featured.map((activity, i) => (
+              <div
+                key={activity.slug}
+                className="animate-fade-up"
+                style={{ animationDelay: `${i * 0.12}s` }}
+              >
+                <ActivityCard activity={activity} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How it works */}
+      <section className="py-16 px-6 bg-white">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-slate-800 mb-2 animate-fade-up">{t.howItWorks.title}</h2>
+          <p className="text-slate-400 text-sm mb-12 animate-fade-up" style={{ animationDelay: '0.08s' }}>
+            {t.howItWorks.subtitle}
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+            {howItWorks.map(({ Icon, title, desc }, i) => (
+              <div
+                key={title}
+                className="flex flex-col items-center gap-4 px-4 animate-fade-up"
+                style={{ animationDelay: `${i * 0.15}s` }}
+              >
+                <div className="w-14 h-14 rounded-2xl bg-brand-blue border border-brand-blue flex items-center justify-center shadow-sm hover:scale-110 transition-transform duration-200">
+                  <Icon size={28} className="text-slate-700" />
+                </div>
+                <h3 className="font-bold text-slate-800 text-base">{title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-14 px-6 bg-brand-pink">
+        <div className="max-w-2xl mx-auto text-center animate-fade-up">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-800 mb-3">{t.cta.title}</h2>
+          <p className="text-slate-500 text-sm mb-7">{t.cta.description}</p>
+          <Link
+            href="/activities"
+            className="inline-block bg-slate-800 hover:bg-slate-700 text-white font-bold px-8 py-3.5 rounded-2xl transition-all duration-200 shadow-md hover:shadow-lg hover:-translate-y-0.5 text-sm"
+          >
+            {t.cta.button}
+          </Link>
+        </div>
+      </section>
     </main>
   )
 }
