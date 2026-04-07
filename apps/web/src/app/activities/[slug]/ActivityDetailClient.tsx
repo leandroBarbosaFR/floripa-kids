@@ -55,12 +55,12 @@ export default function ActivityDetailClient({ activity }: { activity: Activity 
       <div className={`relative h-72 sm:h-[26rem] bg-gradient-to-br ${gradient} flex items-center justify-center`}>
         {activity.imageUrl ? (
           <Image
-            src={activity.imageUrl}
+            src={`${activity.imageUrl}?w=2400&q=90&auto=format&fit=crop`}
             alt={activity.name}
             fill
             sizes="100vw"
             className="object-cover object-center"
-            quality={90}
+            unoptimized
             priority
           />
         ) : (
