@@ -3,13 +3,16 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SlidersHorizontal, X, SearchX } from 'lucide-react'
-import { activities } from '@/lib/data'
-import { AgeRange, ActivityType, Zone } from '@/lib/types'
+import { AgeRange, ActivityType, Zone, Activity } from '@/lib/types'
 import ActivityCard from '@/components/ActivityCard'
 import FilterBar, { Filters } from '@/components/FilterBar'
 import { useTranslation } from '@/components/LanguageProvider'
 
-export default function ActivitiesClient() {
+interface Props {
+  activities: Activity[]
+}
+
+export default function ActivitiesClient({ activities }: Props) {
   const searchParams = useSearchParams()
   const { t } = useTranslation()
 
@@ -42,7 +45,7 @@ export default function ActivitiesClient() {
       if (filters.zone && a.zone !== filters.zone) return false
       return true
     })
-  }, [filters])
+  }, [filters, activities])
 
   const activeCount = Object.values(filters).filter(Boolean).length
   const clearFilters = () => setFilters({ age: '', type: '', weather: '', budget: '', zone: '' })

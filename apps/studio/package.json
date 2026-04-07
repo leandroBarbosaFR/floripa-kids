@@ -1,0 +1,20 @@
+{
+  "name": "@floripa/studio",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "sanity dev --port 3003",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "dependencies": {
+    "sanity": "^3.75.0",
+    "styled-components": "^6.1.0",
+    "@sanity/vision": "^3.75.0"
+  },
+  "devDependencies": {
+    "@sanity/types": "^3.75.0",
+    "typescript": "^5.7.0"
+  }
+}

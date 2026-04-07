@@ -5,14 +5,18 @@
   "workspaces": [
     "apps/admin",
     "apps/web",
+    "apps/studio",
     "packages/*"
   ],
   "scripts": {
     "admin": "npm run dev --workspace=apps/admin",
     "web": "npm run dev --workspace=apps/web",
+    "studio": "npm run dev --workspace=apps/studio",
     "mobile": "npm run start --workspace=apps/mobile",
     "build:admin": "npm run build --workspace=apps/admin",
-    "build:web": "npm run build --workspace=apps/web"
+    "build:web": "npm run build --workspace=apps/web",
+    "build:studio": "npm run build --workspace=apps/studio",
+    "deploy:studio": "npm run deploy --workspace=apps/studio"
   },
   "devDependencies": {
     "turbo": "^2.0.0"

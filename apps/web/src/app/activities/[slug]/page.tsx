@@ -1,14 +1,15 @@
 import { notFound } from 'next/navigation'
-import { activities } from '@/lib/data'
+import { getActivityBySlug, getAllActivitySlugs } from '@/lib/sanity/queries'
 import ActivityDetailClient from './ActivityDetailClient'
 
-export function generateStaticParams() {
-  return activities.map((a) => ({ slug: a.slug }))
+export async function generateStaticParams() {
+  const slugs = await getAllActivitySlugs()
+  return slugs.map((slug) => ({ slug }))
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const activity = activities.find((a) => a.slug === slug)
+  const activity = await getActivityBySlug(slug)
   if (!activity) return {}
   return {
     title: `${activity.name} · Floripa with Kids`,
@@ -22,7 +23,7 @@ export default async function ActivityDetailPage({
   params: Promise<{ slug: string }>
 }) {
   const { slug } = await params
-  const activity = activities.find((a) => a.slug === slug)
+  const activity = await getActivityBySlug(slug)
   if (!activity) notFound()
 
   return <ActivityDetailClient activity={activity} />
