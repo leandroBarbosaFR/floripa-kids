@@ -52,14 +52,15 @@ export default function ActivityDetailClient({ activity }: { activity: Activity 
   return (
     <main className="min-h-screen bg-slate-50">
       {/* Hero */}
-      <div className={`relative h-64 sm:h-80 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
+      <div className={`relative h-72 sm:h-[26rem] bg-gradient-to-br ${gradient} flex items-center justify-center`}>
         {activity.imageUrl ? (
           <Image
             src={activity.imageUrl}
             alt={activity.name}
             fill
             sizes="100vw"
-            className="object-cover"
+            className="object-cover object-center"
+            quality={90}
             priority
           />
         ) : (

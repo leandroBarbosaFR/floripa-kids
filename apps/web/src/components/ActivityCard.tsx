@@ -64,8 +64,9 @@ export default function ActivityCard({ activity, todayWeather }: { activity: Act
             src={activity.imageUrl}
             alt={activity.name}
             fill
-            className="object-cover"
+            className="object-cover object-center"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            quality={85}
           />
         ) : (
           <TypeIcon type={activity.type} size={56} />
