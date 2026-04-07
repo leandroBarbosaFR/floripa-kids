@@ -32,6 +32,13 @@ export const activity = defineType({
       rows: 4,
     }),
     defineField({
+      name: 'image',
+      title: 'Cover image',
+      type: 'image',
+      options: { hotspot: true },
+      description: 'Main photo shown on the card and detail banner',
+    }),
+    defineField({
       name: 'featured',
       title: 'Featured (Top Pick)',
       type: 'boolean',

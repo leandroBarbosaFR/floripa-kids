@@ -4,15 +4,17 @@ import { useState, useMemo, useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { SlidersHorizontal, X, SearchX } from 'lucide-react'
 import { AgeRange, ActivityType, Zone, Activity } from '@/lib/types'
+import { FloripWeather } from '@/lib/weather'
 import ActivityCard from '@/components/ActivityCard'
 import FilterBar, { Filters } from '@/components/FilterBar'
 import { useTranslation } from '@/components/LanguageProvider'
 
 interface Props {
   activities: Activity[]
+  weather: FloripWeather | null
 }
 
-export default function ActivitiesClient({ activities }: Props) {
+export default function ActivitiesClient({ activities, weather }: Props) {
   const searchParams = useSearchParams()
   const { t } = useTranslation()
 
@@ -108,7 +110,7 @@ export default function ActivitiesClient({ activities }: Props) {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {filtered.map((activity) => (
-              <ActivityCard key={activity.slug} activity={activity} />
+              <ActivityCard key={activity.slug} activity={activity} todayWeather={weather} />
             ))}
           </div>
         )}

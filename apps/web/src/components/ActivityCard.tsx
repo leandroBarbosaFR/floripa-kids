@@ -4,6 +4,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { MapPin, Clock, Wallet, Baby, Waves, TreePine, Mountain, Building2, Utensils, CalendarDays, Sun, CloudRain, Cloud, Heart } from 'lucide-react'
 import { Activity } from '@/lib/types'
+import { FloripWeather, weatherEmoji, weatherLabel as liveWeatherLabel } from '@/lib/weather'
 import { activityTypeColors } from '@/lib/data'
 import KidScore from './KidScore'
 import { useTranslation } from './LanguageProvider'
@@ -29,7 +30,7 @@ const WeatherIcon = ({ weather }: { weather: string }) => {
   return <Cloud {...props} />
 }
 
-export default function ActivityCard({ activity }: { activity: Activity }) {
+export default function ActivityCard({ activity, todayWeather }: { activity: Activity; todayWeather?: FloripWeather | null }) {
   const { t } = useTranslation()
   const { toggle, isFavorite } = useFavorites()
   const liked = isFavorite(activity.slug)
@@ -79,6 +80,13 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
             </span>
           )}
         </div>
+        {todayWeather && (
+          <div className="absolute bottom-3 right-3">
+            <span className="bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
+              {weatherEmoji(todayWeather.currentWeatherCode)} {todayWeather.currentTemp}°C · {liveWeatherLabel(todayWeather.currentWeatherCode)}
+            </span>
+          </div>
+        )}
         <div className="absolute top-3 right-3 flex items-center gap-1.5">
           <button
             onClick={(e) => { e.preventDefault(); toggle(activity.slug) }}
