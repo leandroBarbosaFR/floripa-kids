@@ -13,7 +13,7 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="bg-gradient-to-b from-brand-pink/40 to-white px-6 py-20 text-center">
+      <section className="bg-gradient-to-b from-brand-pink/40 to-white px-6 pt-28 pb-20 text-center">
         <div className="max-w-2xl mx-auto">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-brand-pink mb-6 shadow-sm">
             <Heart size={30} className="text-slate-700" strokeWidth={1.5} />

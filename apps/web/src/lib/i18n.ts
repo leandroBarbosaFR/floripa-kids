@@ -11,8 +11,8 @@ export const translations = {
     },
     hero: {
       badge: 'Florianópolis, Brazil',
-      title: 'Discover Floripa',
-      highlight: 'with your kids',
+      title: 'Discover Floripa with',
+      highlight: 'your kids',
       description:
         'The smartest guide for families — beaches, parks, restaurants and rainy-day activities, filtered by age and zone.',
       searchPlaceholder: 'Search activities…',
@@ -196,10 +196,10 @@ export const translations = {
     },
     hero: {
       badge: 'Florianópolis, Brésil',
-      title: 'Découvrez Floripa',
-      highlight: 'avec vos enfants',
+      title: 'Découvrez Floripa avec',
+      highlight: 'vos enfants',
       description:
-        'Le guide le plus complet pour les familles — plages, parcs, restaurants et activités par temps de pluie, filtrés par âge et zone.',
+        'Le guide le plus complet pour les familles plages, parcs, restaurants et activités par temps de pluie, filtrés par âge et zone.',
       searchPlaceholder: 'Rechercher des activités…',
       exploreAll: 'Tout explorer',
       ageFilterLabel: 'Filtre rapide par âge :',
@@ -380,10 +380,10 @@ export const translations = {
     },
     hero: {
       badge: 'Florianópolis, Brasil',
-      title: 'Descubra Floripa',
-      highlight: 'com seus filhos',
+      title: 'Descubra Floripa com',
+      highlight: 'seus filhos',
       description:
-        'O guia mais completo para famílias — praias, parques, restaurantes e atividades para dias de chuva, filtrados por idade e região.',
+        'O guia mais completo para famílias praias, parques, restaurantes e atividades para dias de chuva, filtrados por idade e região.',
       searchPlaceholder: 'Buscar atividades…',
       exploreAll: 'Ver todas',
       ageFilterLabel: 'Filtro rápido por idade:',
@@ -565,10 +565,10 @@ export const translations = {
     },
     hero: {
       badge: 'Florianópolis, Brasil',
-      title: 'Descubre Floripa',
-      highlight: 'con tus hijos',
+      title: 'Descubre Floripa con',
+      highlight: 'tus hijos',
       description:
-        'La guía más completa para familias — playas, parques, restaurantes y actividades para días de lluvia, filtrados por edad y zona.',
+        'La guía más completa para familias playas, parques, restaurantes y actividades para días de lluvia, filtrados por edad y zona.',
       searchPlaceholder: 'Buscar actividades…',
       exploreAll: 'Ver todas',
       ageFilterLabel: 'Filtro rápido por edad:',

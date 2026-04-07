@@ -34,7 +34,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-slate-50">
-      <div className="bg-gradient-to-b from-brand-blue/50 to-white border-b border-brand-blue/30 px-6 py-14">
+      <div className="bg-gradient-to-b from-brand-blue/50 to-white border-b border-brand-blue/30 px-6 pt-24 pb-14">
         <div className="max-w-xl mx-auto text-center">
           <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-brand-blue mb-5 shadow-sm">
             <Mail size={26} className="text-slate-700" strokeWidth={1.5} />

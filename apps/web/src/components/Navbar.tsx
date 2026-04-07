@@ -43,10 +43,10 @@ export default function Navbar() {
   const { data: session } = useSession()
 
   return (
-    <nav className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-brand-blue shadow-sm">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-6xl bg-white/90 backdrop-blur-md border border-slate-200 rounded-2xl shadow-lg">
+      <div className="px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-xl font-extrabold tracking-tight text-slate-800">
+        <Link href="/" className="text-xl font-extrabold tracking-tight text-[#1a1a1a]">
           Floripa with <span className="text-brand-pink">Kids</span>
         </Link>
 
@@ -133,7 +133,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {menuOpen && (
-        <div className="sm:hidden border-t border-brand-blue bg-white px-4 py-4 flex flex-col gap-3">
+        <div className="sm:hidden border-t border-slate-100 bg-white px-4 py-4 flex flex-col gap-3 rounded-b-2xl">
           {navLinks.map((l) => (
             <Link
               key={l.href}

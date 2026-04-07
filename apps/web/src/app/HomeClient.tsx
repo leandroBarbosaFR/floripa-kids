@@ -65,10 +65,10 @@ export default function HomeClient({ featured, events, totalCount, weather }: Pr
   return (
     <main>
       {/* Hero */}
-      <section className="bg-gradient-to-b from-brand-blue via-brand-green/30 to-white pt-16 pb-20 px-6">
+      <section className="bg-gradient-to-b from-brand-blue via-brand-green/30 to-white pt-28 pb-20 px-6">
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-brand-yellow text-slate-700 border border-brand-yellow rounded-full px-4 py-1.5 text-sm font-medium mb-6 animate-slide-down">
-            <Palmtree size={14} className="animate-float" />
+            <Palmtree size={14} />
             {t.hero.badge}
           </div>
 

@@ -26,7 +26,7 @@ export default function DashboardClient({ activities }: Props) {
 
   return (
     <main className="min-h-screen bg-slate-50">
-      <div className="bg-gradient-to-b from-brand-pink/40 to-white border-b border-brand-pink/30 px-6 py-10">
+      <div className="bg-gradient-to-b from-brand-pink/40 to-white border-b border-brand-pink/30 px-6 pt-24 pb-10">
         <div className="max-w-5xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             {session?.user?.image && (

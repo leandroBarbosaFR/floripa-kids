@@ -61,12 +61,12 @@ export default function ActivityCard({ activity, todayWeather }: { activity: Act
       <div className={`relative h-44 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
         {activity.imageUrl ? (
           <Image
-            src={`${activity.imageUrl}?w=900&q=90&auto=format&fit=crop`}
+            src={activity.imageUrl}
             alt={activity.name}
             fill
             className="object-cover object-center"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            unoptimized
+            quality={90}
           />
         ) : (
           <TypeIcon type={activity.type} size={56} />

@@ -54,7 +54,7 @@ export default function ActivitiesClient({ activities, weather }: Props) {
 
   return (
     <main className="min-h-screen bg-slate-50">
-      <div className="bg-gradient-to-b from-brand-blue/60 to-white border-b border-brand-blue px-6 py-10">
+      <div className="bg-gradient-to-b from-brand-blue/60 to-white border-b border-brand-blue px-6 pt-24 pb-10">
         <div className="max-w-5xl mx-auto">
           <h1 className="text-3xl font-extrabold text-slate-800 mb-1">{t.activitiesPage.title}</h1>
           <p className="text-slate-400 text-sm">{t.activitiesPage.found(filtered.length)}</p>
