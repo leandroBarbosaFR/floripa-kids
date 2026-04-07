@@ -21,7 +21,8 @@ const ACTIVITY_PROJECTION = `
   tips,
   warnings,
   kidScore,
-  featured
+  featured,
+  "imageUrl": image.asset->url
 `
 
 const NOT_DRAFT = `!(_id in path("drafts.**"))`

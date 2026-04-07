@@ -60,4 +60,5 @@ export interface Activity {
   warnings: string[]
   kidScore: KidScore
   featured?: boolean
+  imageUrl?: string | null
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { MapPin, Clock, Wallet, Baby, Waves, TreePine, Mountain, Building2, Utensils, CalendarDays, Sun, CloudRain, Cloud, Heart } from 'lucide-react'
 import { Activity } from '@/lib/types'
 import { activityTypeColors } from '@/lib/data'
@@ -57,7 +58,17 @@ export default function ActivityCard({ activity }: { activity: Activity }) {
     >
       {/* Visual header */}
       <div className={`relative h-44 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
-        <TypeIcon type={activity.type} size={56} />
+        {activity.imageUrl ? (
+          <Image
+            src={activity.imageUrl}
+            alt={activity.name}
+            fill
+            className="object-cover"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        ) : (
+          <TypeIcon type={activity.type} size={56} />
+        )}
         <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
           <span className="bg-white/90 backdrop-blur-sm text-slate-700 text-xs font-semibold px-2.5 py-1 rounded-full shadow-sm">
             {typeLabel}

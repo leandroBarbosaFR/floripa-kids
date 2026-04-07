@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   MapPin, Clock, Wallet, Baby, ArrowLeft, CheckCircle, AlertTriangle,
   Car, Utensils, Waves, TreePine, Mountain, Building2, CalendarDays,
@@ -52,7 +53,18 @@ export default function ActivityDetailClient({ activity }: { activity: Activity 
     <main className="min-h-screen bg-slate-50">
       {/* Hero */}
       <div className={`relative h-64 sm:h-80 bg-gradient-to-br ${gradient} flex items-center justify-center`}>
-        <TypeIcon type={activity.type} />
+        {activity.imageUrl ? (
+          <Image
+            src={activity.imageUrl}
+            alt={activity.name}
+            fill
+            sizes="100vw"
+            className="object-cover"
+            priority
+          />
+        ) : (
+          <TypeIcon type={activity.type} />
+        )}
         <div className="absolute inset-0 bg-black/10" />
         <Link
           href="/activities"

@@ -3,8 +3,10 @@
 import Link from 'next/link'
 import { Search, MapPin, Baby, Palmtree, Waves, TreePine, CloudRain, Tag, Building2, Compass, CalendarDays, Clock } from 'lucide-react'
 import ActivityCard from '@/components/ActivityCard'
+import WeatherWidget from '@/components/WeatherWidget'
 import { useTranslation } from '@/components/LanguageProvider'
 import type { Activity, SanityEvent } from '@/lib/types'
+import type { FloripWeather } from '@/lib/weather'
 
 const CategoryIcon = ({ type }: { type: string }) => {
   const props = { size: 28, strokeWidth: 1.5, className: 'text-slate-700' }
@@ -23,9 +25,10 @@ interface Props {
   featured: Activity[]
   events: SanityEvent[]
   totalCount: number
+  weather: FloripWeather | null
 }
 
-export default function HomeClient({ featured, events, totalCount }: Props) {
+export default function HomeClient({ featured, events, totalCount, weather }: Props) {
   const { t } = useTranslation()
 
   const quickFilters = [
@@ -111,6 +114,9 @@ export default function HomeClient({ featured, events, totalCount }: Props) {
           ))}
         </div>
       </section>
+
+      {/* Weather */}
+      {weather && <WeatherWidget weather={weather} />}
 
       {/* Quick filters / Categories */}
       <section className="py-14 px-6 bg-white">
