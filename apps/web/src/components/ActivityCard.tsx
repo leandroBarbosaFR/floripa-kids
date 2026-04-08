@@ -30,11 +30,12 @@ const WeatherIcon = ({ weather }: { weather: string }) => {
   return <Cloud {...props} />
 }
 
-export default function ActivityCard({ activity, todayWeather }: { activity: Activity; todayWeather?: FloripWeather | null }) {
+export default function ActivityCard({ activity, todayWeather, date }: { activity: Activity; todayWeather?: FloripWeather | null; date?: string }) {
   const { t } = useTranslation()
   const { toggle, isFavorite } = useFavorites()
   const liked = isFavorite(activity.slug)
   const gradient = activityTypeColors[activity.type] ?? 'from-sky-300 to-blue-400'
+  const eventDay = todayWeather?.days.find(d => date ? d.date === date : d.isToday)
 
   const weatherCls =
     activity.weather === 'sunny'
@@ -81,10 +82,10 @@ export default function ActivityCard({ activity, todayWeather }: { activity: Act
             </span>
           )}
         </div>
-        {todayWeather && (
+        {eventDay && (
           <div className="absolute bottom-3 right-3">
             <span className="bg-black/50 backdrop-blur-sm text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1">
-              {weatherEmoji(todayWeather.currentWeatherCode)} {todayWeather.currentTemp}°C · {liveWeatherLabel(todayWeather.currentWeatherCode)}
+              {weatherEmoji(eventDay.weatherCode)} {eventDay.maxTemp}°C · {liveWeatherLabel(eventDay.weatherCode)}
             </span>
           </div>
         )}
@@ -99,7 +100,7 @@ export default function ActivityCard({ activity, todayWeather }: { activity: Act
               className={liked ? 'text-brand-pink fill-brand-pink' : 'text-slate-400'}
             />
           </button>
-          <KidScore score={activity.kidScore} compact />
+          {/* <KidScore score={activity.kidScore} compact /> */}
         </div>
       </div>
 
@@ -141,11 +142,13 @@ export default function ActivityCard({ activity, todayWeather }: { activity: Act
           ))}
         </div>
 
-        {/* Weather badge */}
-        <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${weatherCls}`}>
-          <WeatherIcon weather={activity.weather} />
-          {weatherLabel}
-        </span>
+        {/* Weather badge + forecast */}
+        <div className="flex items-center justify-between gap-2">
+          <span className={`inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border ${weatherCls}`}>
+            <WeatherIcon weather={activity.weather} />
+            {weatherLabel}
+          </span>
+        </div>
       </div>
     </Link>
   )

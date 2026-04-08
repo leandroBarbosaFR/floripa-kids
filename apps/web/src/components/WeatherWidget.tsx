@@ -1,22 +1,24 @@
 'use client'
 
 import Link from 'next/link'
+import { Sun, CloudSun, Cloud, CloudFog, CloudDrizzle, CloudRain, Snowflake, CloudSnow, CloudLightning } from 'lucide-react'
 import type { FloripWeather } from '@/lib/weather'
-import { weatherEmoji, weatherLabel } from '@/lib/weather'
+import { weatherLabel } from '@/lib/weather'
 
-function PrecipBar({ prob }: { prob: number }) {
-  return (
-    <div className="flex items-center gap-1 mt-1">
-      <div className="h-1 w-12 rounded-full bg-slate-200 overflow-hidden">
-        <div
-          className="h-full rounded-full bg-sky-400 transition-all"
-          style={{ width: `${prob}%` }}
-        />
-      </div>
-      <span className="text-xs text-slate-400">{prob}%</span>
-    </div>
-  )
+const WeatherIcon = ({ code, size = 20, className = '' }: { code: number; size?: number; className?: string }) => {
+  const props = { size, strokeWidth: 1.5, className }
+  if (code === 0) return <Sun {...props} />
+  if (code <= 2) return <CloudSun {...props} />
+  if (code === 3) return <Cloud {...props} />
+  if (code <= 48) return <CloudFog {...props} />
+  if (code <= 55) return <CloudDrizzle {...props} />
+  if (code <= 65) return <CloudRain {...props} />
+  if (code <= 77) return <Snowflake {...props} />
+  if (code <= 82) return <CloudRain {...props} />
+  if (code <= 86) return <CloudSnow {...props} />
+  return <CloudLightning {...props} />
 }
+
 
 export default function WeatherWidget({ weather }: { weather: FloripWeather }) {
   const isRainy = weather.currentPrecipProb >= 50 ||
@@ -29,7 +31,7 @@ export default function WeatherWidget({ weather }: { weather: FloripWeather }) {
         <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <div>
             <div className="flex items-center gap-2 mb-0.5">
-              <span className="text-2xl leading-none">{weatherEmoji(weather.currentWeatherCode)}</span>
+              <WeatherIcon code={weather.currentWeatherCode} size={28} className="text-slate-700" />
               <h2 className="text-xl font-bold text-slate-800">Floripa Today</h2>
             </div>
             <p className="text-slate-400 text-xs">
@@ -65,7 +67,7 @@ export default function WeatherWidget({ weather }: { weather: FloripWeather }) {
               }`}
             >
               <span className="text-xs font-bold text-slate-600">{day.dayLabel}</span>
-              <span className="text-xl leading-none">{weatherEmoji(day.weatherCode)}</span>
+              <WeatherIcon code={day.weatherCode} size={22} className="text-slate-600" />
               <span className="text-sm font-bold text-slate-800">{day.maxTemp}°</span>
               <span className="text-xs text-slate-400">{day.minTemp}°</span>
               {day.precipProb > 0 && (
@@ -75,33 +77,10 @@ export default function WeatherWidget({ weather }: { weather: FloripWeather }) {
           ))}
         </div>
 
-        {/* Hourly forecast */}
-        <div>
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">
-            Next 12 hours
-          </p>
-          <div className="flex gap-3 overflow-x-auto pb-2 -mx-1 px-1 scrollbar-hide">
-            {weather.todayHours.map((h) => {
-              const label = h.hour === 0 ? '12am'
-                : h.hour < 12 ? `${h.hour}am`
-                : h.hour === 12 ? '12pm'
-                : `${h.hour - 12}pm`
-              return (
-                <div key={h.hour} className="flex-shrink-0 flex flex-col items-center gap-1 min-w-[52px]">
-                  <span className="text-xs text-slate-400">{label}</span>
-                  <span className="text-base leading-none">{weatherEmoji(h.weatherCode)}</span>
-                  <span className="text-sm font-semibold text-slate-700">{h.temp}°</span>
-                  <PrecipBar prob={h.precipProb} />
-                </div>
-              )
-            })}
-          </div>
-        </div>
-
         {/* Rainy day suggestion */}
         {isRainy && (
           <div className="mt-5 flex items-center gap-3 bg-white/80 border border-sky-100 rounded-2xl px-4 py-3">
-            <span className="text-2xl">🌧️</span>
+            <CloudRain size={24} strokeWidth={1.5} className="text-sky-500 shrink-0" />
             <div className="flex-1">
               <p className="text-sm font-semibold text-slate-700">Looks like a rainy day!</p>
               <p className="text-xs text-slate-400">We have great indoor activities for you.</p>

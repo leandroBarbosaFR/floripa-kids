@@ -103,6 +103,7 @@ export default function HomeClient({ featured, events, totalCount, weather }: Pr
         </div>
       </section>
 
+
       {/* Stats */}
       <section className="bg-white border-y border-slate-100 py-8 px-6">
         <div className="max-w-4xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
@@ -114,6 +115,30 @@ export default function HomeClient({ featured, events, totalCount, weather }: Pr
           ))}
         </div>
       </section>
+
+      {/* Top Picks / Featured */}
+      {featured.length > 0 && (
+        <section className="py-14 px-6 bg-brand-blue/40">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-end justify-between mb-7 animate-fade-up">
+              <div>
+                <h2 className="text-2xl font-bold text-slate-800 mb-1">{t.featured.title}</h2>
+                <p className="text-slate-400 text-sm">{t.featured.subtitle}</p>
+              </div>
+              <Link href="/activities" className="text-brand-coral hover:text-brand-coral/70 text-sm font-semibold transition-colors">
+                {t.featured.viewAll} →
+              </Link>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {featured.map((activity, i) => (
+                <div key={activity.slug} className="animate-fade-up" style={{ animationDelay: `${i * 0.12}s` }}>
+                  <ActivityCard activity={activity} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Weather */}
       {weather && <WeatherWidget weather={weather} />}
@@ -168,30 +193,6 @@ export default function HomeClient({ featured, events, totalCount, weather }: Pr
           </div>
         </div>
       </section>
-
-      {/* Top Picks / Featured */}
-      {featured.length > 0 && (
-        <section className="py-14 px-6 bg-brand-blue/40">
-          <div className="max-w-5xl mx-auto">
-            <div className="flex items-end justify-between mb-7 animate-fade-up">
-              <div>
-                <h2 className="text-2xl font-bold text-slate-800 mb-1">{t.featured.title}</h2>
-                <p className="text-slate-400 text-sm">{t.featured.subtitle}</p>
-              </div>
-              <Link href="/activities" className="text-brand-coral hover:text-brand-coral/70 text-sm font-semibold transition-colors">
-                {t.featured.viewAll} →
-              </Link>
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {featured.map((activity, i) => (
-                <div key={activity.slug} className="animate-fade-up" style={{ animationDelay: `${i * 0.12}s` }}>
-                  <ActivityCard activity={activity} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       {/* Upcoming Events */}
       {events.length > 0 && (
